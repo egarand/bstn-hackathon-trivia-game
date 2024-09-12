@@ -72,3 +72,43 @@ class TriviaGame {
 		return items;
 	}
 }
+
+const game = new TriviaGame();
+
+const difficultySelect = document.querySelector("#difficult"),
+	categorySelect = document.querySelector("#category"),
+	startGameForm = document.querySelector(".game__form");
+
+API.getCategories()
+	.then((categories) => {
+		categorySelect.textContent = "";
+		for (const category of categories) {
+			let option = document.createElement("option");
+			option.setAttribute("value", category.id);
+			option.textContent = category.name;
+			categorySelect.append(option);
+		}
+	});
+
+startGameForm.addEventListener("submit", async (event) => {
+	event.preventDefault();
+	await game.start(difficultySelect.value, categorySelect.value);
+
+	const question = game.getCurrentQuestion();
+	console.log(question);
+});
+
+/*
+GAME LOOP:
+
+1. game.start(difficulty, category) to begin a new game. ASYNCHRONOUS; WAIT TIL IT FINISHES.
+2. use game.getCurrentQuestion() to get a question object. Display it as HTML on the page.
+3. when the user selects and submits an answer, use game.answerCurrentQuestion() to answer it. this method returns true if it was correct, and false if it wasn't correct.
+4. if the answer was correct....
+	a. use game.goToNextQuestion() to increment the question counter.
+	b. use game.hasReachedEnd to check if there are questions left or not.
+		i. if no questions are left, tell the user they won! and ask if they want to play again.
+		ii. if there are questions left, repeat from step 2.
+5. if the answer was incorrect...
+	a. tell the user they lost... and ask if they want to play again.
+*/

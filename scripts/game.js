@@ -1,3 +1,6 @@
+/**
+ * @author Erica Garand
+ */
 class TriviaGame {
 	constructor() {}
 
@@ -5,6 +8,7 @@ class TriviaGame {
 	#currentQuestion;
 	#points;
 
+	/** Queries a new set of 10 questions for the given difficulty and category, and resets the points. */
 	async start(difficulty = "easy", category = 0) {
 		this.#points = 0;
 		this.#currentQuestion = 0;
@@ -19,6 +23,9 @@ class TriviaGame {
 	// note: if we implement a skip button, should check if unanswered questions remain
 	get hasReachedEnd() { return this.#currentQuestion >= this.questionsTotal; }
 
+	/**
+	 * @returns The current question with the answer choices randomly shuffled. if there are no more questions left, returns null instead.
+	 */
 	getCurrentQuestion() {
 		if (this.hasReachedEnd) {
 			return null;
@@ -37,6 +44,10 @@ class TriviaGame {
 		this.#currentQuestion++;
 	}
 
+	/**
+	 * @param {string} answer The user's answer for the current question, from the given options
+	 * @returns True if the answer was correct; False if it was incorrect; null if there were no questions left.
+	 */
 	answerCurrentQuestion(answer) {
 		if (this.hasReachedEnd) {
 			return null;

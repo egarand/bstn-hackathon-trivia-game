@@ -1,3 +1,6 @@
+/**
+ * @author Erica Garand
+ */
 class TriviaAPI {
 	constructor(debugMode = false) {
 		this.debugMode = debugMode

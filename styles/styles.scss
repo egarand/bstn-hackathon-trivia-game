@@ -140,12 +140,17 @@
     height: 8rem;
     width: 100%;
 
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: blueviolet;
 
     background-color: #f7d408;
     border: 1px solid blueviolet;
     border-radius: 12px;
+
+    @include tablet {
+      font-size: 1.2rem;
+      height: 10rem;
+    }
   }
 
   &__answer {

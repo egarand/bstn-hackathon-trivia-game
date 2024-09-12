@@ -335,11 +335,17 @@ h4 {
   padding: 1rem;
   height: 8rem;
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: blueviolet;
   background-color: #f7d408;
   border: 1px solid blueviolet;
   border-radius: 12px;
+}
+@media screen and (min-width: 830px) {
+  .game__question {
+    font-size: 1.2rem;
+    height: 10rem;
+  }
 }
 .game__answer {
   width: 100%;

@@ -104,8 +104,6 @@ async function gameLoop() {
 	displayQuestion(game.getCurrentQuestion());
 	const radioBtns = questionForm.querySelectorAll("input[type=radio]");
 
-	console.log("example question", game.getCurrentQuestion());
-
 	for (const radio of radioBtns) {
 		radio.addEventListener("change", choiceListener);
 	}
@@ -122,7 +120,7 @@ async function gameLoop() {
 
 			game.goToNextQuestion();
 			if (game.hasReachedEnd) {
-				displayRestart("You won! :)");
+				displayMessage("You won! Play again?");
 			} else {
 				setTimeout(() => {
 					displayQuestion(game.getCurrentQuestion());
@@ -130,7 +128,8 @@ async function gameLoop() {
 			}
 		} else {
 			event.currentTarget.parentElement.classList.add("game__answer--incorrect");
-			displayRestart("You lost... :(");
+			displayMessage("You lost... Play again?");
+			displayScore(0);
 		}
 	}
 }
@@ -147,20 +146,31 @@ function decodeEntities(text) {
 }
 
 function displayQuestion(question) {
-	for (const choice of questionForm.querySelectorAll("input[type=radio]")) {
-		choice.removeAttribute("disabled");
-		choice.classList.remove("game__answer--correct");
-		choice.classList.remove("game__answer--incorrect");
+	questionCard.querySelector(".game__question").textContent = decodeEntities(question.question);
+
+	const choiceEls = questionForm.querySelectorAll(".game__answer"),
+		radioBtns = questionForm.querySelectorAll("input[type=radio]");
+	for (let i = 0; i < question.choices.length; i++) {
+		radioBtns[i].checked = false;
+		radioBtns[i].removeAttribute("disabled");
+		choiceEls[i].classList.remove("game__answer--correct");
+		choiceEls[i].classList.remove("game__answer--incorrect");
+
+		radioBtns[i].setAttribute("value", question.choices[i]);
+		choiceEls[i].querySelector("label").textContent = decodeEntities(question.choices[i]);
 	}
-
-	// TODO should update the game__card (stored in questionCard) with current question
 }
 
-function displayScore() {
-	// TODO should update the score ladder to reflect current score
-	// game.questionsCorrect
+function displayScore(score = game.questionsCorrect) {
+	const prizeAmounts = prizeLadder.querySelectorAll(".game__prize-amount");
+	for (const prize of prizeAmounts) {
+		prize.classList.remove("game__prize-amount--selected");
+	}
+	const currentPrize = prizeAmounts.length - 1 - score;
+	prizeAmounts[currentPrize].classList.add("game__prize-amount--selected");
 }
 
-function displayRestart(message) {
-	// TODO should show the message (which says if they won or lost), and tell the user to restart the game
+function displayMessage(message) {
+	const messageEl = document.querySelector(".game__user-msg");
+	messageEl.textContent = message;
 }

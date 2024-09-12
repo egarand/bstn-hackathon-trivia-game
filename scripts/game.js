@@ -19,6 +19,17 @@ class TriviaGame {
 	// note: if we implement a skip button, should check if unanswered questions remain
 	get hasReachedEnd() { return this.#currentQuestion >= this.questionsTotal; }
 
+	getCurrentQuestion() {
+		if (this.hasReachedEnd) {
+			return null;
+		}
+		const q = this.#questions[this.#currentQuestion];
+		return {
+			question: q.question,
+			choices: this.#shuffle([q.correct_answer, ...q.incorrect_answers]),
+			category: q.category,
+			difficulty: q.difficulty
+		};
 	}
 
 	goToNextQuestion() {
@@ -38,7 +49,15 @@ class TriviaGame {
 			return true;
 		}
 		return false;
+	}
 
-
+	// Fisher-Yates shuffle algorithm
+	// https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+	#shuffle(items) {
+		for (let i = items.length - 1; i > 0; i--) {
+			const randomIdx = Math.floor(Math.random() * (i + 1));
+			[items[i], items[randomIdx]] = [items[randomIdx], items[i]];
+		}
+		return items;
 	}
 }

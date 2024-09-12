@@ -1,5 +1,13 @@
+/*
+Handles API calls and event listeners for the trivia game.
+
+author: Erica Garand
+*/
+
+(()=>{
+
 /**
- * @author Erica Garand
+ * Manages question generation, game progression, and scoring
  */
 class TriviaGame {
 	constructor() {}
@@ -73,7 +81,9 @@ class TriviaGame {
 	}
 }
 
+
 const game = new TriviaGame();
+let listenersAlreadyInitialized = false;
 
 const difficultySelect = document.querySelector("#difficult"),
 	categorySelect = document.querySelector("#category"),
@@ -81,6 +91,7 @@ const difficultySelect = document.querySelector("#difficult"),
 	prizeLadder = document.querySelector(".game__prize-ladder"),
 	questionCard = document.querySelector(".game__card"),
 	questionForm = questionCard.querySelector("form");
+
 
 API.getCategories()
 	.then((categories) => {
@@ -91,48 +102,54 @@ API.getCategories()
 			option.textContent = category.name;
 			categorySelect.append(option);
 		}
+		startGameForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			gameLoop();
+		});
 	});
 
-startGameForm.addEventListener("submit", (event) => {
-	event.preventDefault();
-	gameLoop();
-});
-
+/** Starts a new round of trivia */
 async function gameLoop() {
-	await game.start();
+	await game.start(difficultySelect.value, categorySelect.value);
 	displayScore();
+	displayMessage("Good luck!");
+	displayQuestion(game.getCurrentQuestion());
 
-	console.log("example question", game.getCurrentQuestion());
+	if (!listenersAlreadyInitialized) {
+		listenersAlreadyInitialized = true;
 
-	const choiceListener = (event) => {
-		for (const choice of questionForm.querySelectorAll("input[type=radio]")) {
-			choice.setAttribute("disabled", true);
+		const radioBtns = questionForm.querySelectorAll("input[type=radio]");
+		for (const radio of radioBtns) {
+			radio.addEventListener("change", choiceListener);
 		}
-		const answer = event.currentTarget.value;
-		const wasCorrect = game.answerCurrentQuestion(answer);
-		if (wasCorrect) {
-			displayScore();
-			event.currentTarget.classList.add("game__answer--correct");
 
-			game.goToNextQuestion();
-			if (game.hasReachedEnd) {
-				displayRestart("You won! :)");
-			} else {
-				setTimeout(() => {
-					displayQuestion(game.getCurrentQuestion())
-				}, 5000);
+		function choiceListener(event) {
+			for (const radio of radioBtns) {
+				radio.setAttribute("disabled", true);
 			}
-		} else {
-			event.currentTarget.classList.add("game__answer--incorrect");
-			displayRestart("You lost... :(");
-		}
-	};
+			const answer = event.currentTarget.value;
+			const wasCorrect = game.answerCurrentQuestion(answer);
+			if (wasCorrect) {
+				displayScore();
+				event.currentTarget.parentElement.classList.add("game__answer--correct");
 
-	for (const choice of questionForm.querySelectorAll("input[type=radio]")) {
-		choice.setAttribute("disabled", true);
+				game.goToNextQuestion();
+				if (game.hasReachedEnd) {
+					displayMessage("You won! Play again?");
+				} else {
+					setTimeout(() => {
+						displayQuestion(game.getCurrentQuestion());
+					}, 5000);
+				}
+			} else {
+				event.currentTarget.parentElement.classList.add("game__answer--incorrect");
+				displayMessage("You lost... Play again?");
+				displayScore(0);
+			}
+		}
 	}
-	questionForm.addEventListener("submit", choiceListener);
 }
+
 
 /**
  * Use on the text for questions and answer choices to make sure they display correctly.
@@ -146,20 +163,33 @@ function decodeEntities(text) {
 }
 
 function displayQuestion(question) {
-	for (const choice of questionForm.querySelectorAll("input[type=radio]")) {
-		choice.removeAttribute("disabled");
-		choice.classList.remove("game__answer--correct");
-		choice.classList.remove("game__answer--incorrect");
+	questionCard.querySelector(".game__question").textContent = decodeEntities(question.question);
+
+	const choiceEls = questionForm.querySelectorAll(".game__answer"),
+		radioBtns = questionForm.querySelectorAll("input[type=radio]");
+	for (let i = 0; i < question.choices.length; i++) {
+		radioBtns[i].checked = false;
+		radioBtns[i].removeAttribute("disabled");
+		choiceEls[i].classList.remove("game__answer--correct");
+		choiceEls[i].classList.remove("game__answer--incorrect");
+
+		radioBtns[i].setAttribute("value", question.choices[i]);
+		choiceEls[i].querySelector("label").textContent = decodeEntities(question.choices[i]);
 	}
-
-	// TODO should update the game__card (stored in questionCard) with current question
 }
 
-function displayScore() {
-	// TODO should update the score ladder to reflect current score
-	// game.questionsCorrect
+function displayScore(score = game.questionsCorrect) {
+	const prizeAmounts = prizeLadder.querySelectorAll(".game__prize-amount");
+	for (const prize of prizeAmounts) {
+		prize.classList.remove("game__prize-amount--selected");
+	}
+	const currentPrize = prizeAmounts.length - 1 - score;
+	prizeAmounts[currentPrize].classList.add("game__prize-amount--selected");
 }
 
-function displayRestart(message) {
-	// TODO should show the message (which says if they won or lost), and tell the user to restart the game
+function displayMessage(message) {
+	const messageEl = document.querySelector(".game__user-msg");
+	messageEl.textContent = message;
 }
+
+})();

@@ -229,3 +229,5 @@ class TriviaAPI {
 	}
 
 }
+
+const API = new TriviaAPI(true);

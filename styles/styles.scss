@@ -242,11 +242,21 @@
     &--correct {
       color: blueviolet;
       background-color: #14f204;
+      animation: correct-answer 250ms linear alternate infinite;
+      &:hover {
+        color: blueviolet;
+        background-color: #14f204;
+      }
     }
 
     &--incorrect {
       color: white;
       background-color: red;
+      &:hover {
+        color: white;
+        background-color: red;
+      }
+      animation: incorrect-answer 20ms linear alternate 5;
     }
   }
 }

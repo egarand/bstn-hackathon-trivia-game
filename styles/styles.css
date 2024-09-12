@@ -66,6 +66,22 @@ h4 {
     transform: scale(1.2);
   }
 }
+@keyframes correct-answer {
+  0% {
+    transform: scale(initial);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+@keyframes incorrect-answer {
+  from {
+    transform: translateX(1rem);
+  }
+  to {
+    transform: translateX(initial);
+  }
+}
 .header {
   background-color: #031430;
   display: flex;
@@ -305,8 +321,18 @@ h4 {
 .game__answer--correct {
   color: blueviolet;
   background-color: #14f204;
+  animation: correct-answer 250ms linear alternate infinite;
+}
+.game__answer--correct:hover {
+  color: blueviolet;
+  background-color: #14f204;
 }
 .game__answer--incorrect {
+  color: white;
+  background-color: red;
+  animation: incorrect-answer 20ms linear alternate 5;
+}
+.game__answer--incorrect:hover {
   color: white;
   background-color: red;
 }

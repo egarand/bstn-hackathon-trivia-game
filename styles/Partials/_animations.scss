@@ -15,3 +15,20 @@
     transform: scale(1.2);
   }
 }
+
+@keyframes correct-answer {
+  0% {
+    transform: scale(initial);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+@keyframes incorrect-answer {
+  from {
+    transform: translateX(1rem);
+  }
+  to {
+    transform: translateX(initial);
+  }
+}

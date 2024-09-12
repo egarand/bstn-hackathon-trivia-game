@@ -28,9 +28,14 @@ a {
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   color: white;
+}
+@media screen and (min-width: 830px) {
+  h1 {
+    font-size: 1.5rem;
+  }
 }
 
 h2 {
@@ -68,6 +73,15 @@ h4 {
   justify-content: none;
   align-items: center;
 }
+@media screen and (min-width: 830px) {
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-left: 2.25rem;
+  }
+}
 .header__logo-link {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -87,6 +101,11 @@ h4 {
   justify-content: space-evenly;
   align-items: center;
   padding-bottom: 1rem;
+}
+@media screen and (min-width: 830px) {
+  .header__menu {
+    padding-bottom: 0rem;
+  }
 }
 .header__menu-item {
   width: 45%;
@@ -119,46 +138,53 @@ h4 {
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  background-image: url("../assets/hero.png");
   height: 50vw;
   width: 100%;
+  background-image: url("../assets/hero.png");
   background-position: center;
   background-size: cover;
 }
 .hero__title {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   animation: scale-hero-title 2s linear alternate infinite;
 }
 
 .game {
-  background-color: #031430;
   padding: 1rem;
-  height: auto;
+  background-color: #031430;
 }
 .game__section-title {
-  color: white;
-  font-size: 2rem;
   margin-bottom: 2rem;
+  font-size: 2rem;
+  color: white;
   text-align: center;
 }
 .game__container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
+}
+@media screen and (min-width: 830px) {
+  .game__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 .game__label {
   color: white;
   margin-right: 0.5rem;
 }
 .game__btn-container {
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 5rem;
+  width: 100%;
   margin-bottom: 2rem;
 }
 .game__user-msg {
@@ -182,19 +208,38 @@ h4 {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .game__category, .game__difficult {
-  width: 25rem;
+  margin-bottom: 1rem;
+  width: 18rem;
+  background-color: blueviolet;
   border-radius: 12px;
   text-align: center;
-  background-color: blueviolet;
   color: white;
 }
+@media screen and (min-width: 830px) {
+  .game__category, .game__difficult {
+    margin-bottom: 0rem;
+    width: 25rem;
+  }
+}
 .game__prize-ladder {
-  width: 25%;
-  height: 29rem;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+@media screen and (min-width: 830px) {
+  .game__prize-ladder {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0rem;
+    width: 25%;
+    height: 29rem;
+  }
 }
 .game__prize-amount {
   width: 8rem;
@@ -210,36 +255,44 @@ h4 {
 }
 .game__container2 {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: rgba(234, 98, 232, 0.062745098);
-  border-radius: 3rem;
   padding: 1rem;
   width: 100%;
+  background-color: rgba(234, 98, 232, 0.062745098);
+  border-radius: 1rem;
+}
+@media screen and (min-width: 830px) {
+  .game__container2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
 }
 .game__card {
+  padding: 1rem;
   border: 1px solid blueviolet;
   border-radius: 15px;
-  padding: 1rem;
 }
 .game__question {
+  padding: 1rem;
+  height: 8rem;
+  width: 100%;
+  font-size: 1.2rem;
   color: blueviolet;
   background-color: #f7d408;
-  height: 8rem;
-  width: 40rem;
-  padding: 1rem;
   border: 1px solid blueviolet;
   border-radius: 12px;
-  font-size: 1.2rem;
 }
 .game__answer {
-  color: white;
-  margin-top: 1rem;
   width: 100%;
   padding: 1rem;
+  margin-top: 1rem;
   border: 1px solid blueviolet;
   border-radius: 35px;
+  color: white;
 }
 .game__answer:hover {
   color: blueviolet;
@@ -259,8 +312,8 @@ h4 {
 }
 
 .footer {
-  background-color: black;
   padding: 1rem;
+  background-color: black;
 }
 .footer__section-title {
   color: white;
@@ -281,18 +334,18 @@ h4 {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-bottom: 0.5rem;
   font-size: 0.8rem;
   color: white;
-  margin-bottom: 0.5rem;
 }
 .footer__icon-link:hover {
   text-decoration: underline;
 }
 .footer__icon {
-  background-color: white;
-  border: 1px solid white;
-  border-radius: 10px;
   margin-right: 0.5rem;
   width: 1.2rem;
   height: 1.2rem;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
 }/*# sourceMappingURL=styles.css.map */

@@ -7,9 +7,16 @@
 
   @include flexbox(column, none, center);
 
+  @include tablet {
+    @include flexbox(row, center, center);
+
+    padding-left: 2.25rem;
+  }
+
   &__logo-link {
     margin-top: 1rem;
     margin-bottom: 1rem;
+
     width: 3rem;
     height: 3rem;
   }
@@ -25,7 +32,12 @@
 
   &__menu {
     @include flexbox(row, space-evenly, center);
+
     padding-bottom: 1rem;
+
+    @include tablet {
+      padding-bottom: 0rem;
+    }
 
     &-item {
       width: 45%;
@@ -64,34 +76,42 @@
 
 .hero {
   @include flexbox(row, center, flex-end);
-  background-image: url('../assets/hero.png');
+
   height: 50vw;
   width: 100%;
+
+  background-image: url('../assets/hero.png');
   background-position: center;
   background-size: cover;
 
   &__title {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+
     animation: scale-hero-title 2s linear alternate infinite;
   }
 }
 
 .game {
-  background-color: #031430;
   padding: 1rem;
-  height: auto;
+
+  background-color: #031430;
 
   &__section-title {
-    color: white;
-    font-size: 2rem;
     margin-bottom: 2rem;
 
+    font-size: 2rem;
+    color: white;
     text-align: center;
   }
 
   &__container {
-    @include flexbox(row, space-between, center);
+    @include flexbox(column, center, center);
+
     margin-bottom: 2rem;
+
+    @include tablet {
+      @include flexbox(row, space-between, center);
+    }
   }
 
   &__label {
@@ -100,9 +120,10 @@
   }
 
   &__btn-container {
-    width: 100%;
     @include flexbox(row, flex-start, center);
     gap: 5rem;
+
+    width: 100%;
     margin-bottom: 2rem;
   }
 
@@ -116,64 +137,98 @@
 
   &__category,
   &__difficult {
-    width: 25rem;
-    border-radius: 12px;
-    text-align: center;
+    margin-bottom: 1rem;
+    width: 18rem;
+
     background-color: blueviolet;
+    border-radius: 12px;
+
+    text-align: center;
     color: white;
+
+    @include tablet {
+      margin-bottom: 0rem;
+      width: 25rem;
+    }
   }
 
   &__prize-ladder {
-    width: 25%;
-    height: 29rem;
-    @include flexbox(column, space-between, center);
+    @include flexbox(row, space-around, center);
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+
+    @include tablet {
+      @include flexbox(column, space-between, center);
+
+      margin-bottom: 0rem;
+      width: 25%;
+      height: 29rem;
+    }
   }
 
   &__prize-amount {
     width: 8rem;
+
     text-align: center;
     color: white;
+
     border: 1px solid blueviolet;
     border-radius: 12px;
+
     &--selected {
       background-color: #f7d408;
       color: blueviolet;
+
       animation: scale-question-number 500ms linear alternate infinite;
     }
   }
 
   &__container2 {
-    @include flexbox(row, space-around, center);
-    background-color: #ea62e810;
-    border-radius: 3rem;
+    @include flexbox(column, space-around, center);
+
     padding: 1rem;
     width: 100%;
+
+    background-color: #ea62e810;
+    border-radius: 1rem;
+
+    @include tablet {
+      @include flexbox(row, space-around, center);
+    }
   }
 
   &__card {
+    padding: 1rem;
+
     border: 1px solid blueviolet;
     border-radius: 15px;
-    padding: 1rem;
   }
 
   &__question {
-    color: blueviolet;
-    background-color: #f7d408;
-    height: 8rem;
-    width: 40rem;
     padding: 1rem;
+    height: 8rem;
+    width: 100%;
+
+    font-size: 1.2rem;
+    color: blueviolet;
+
+    background-color: #f7d408;
     border: 1px solid blueviolet;
     border-radius: 12px;
-    font-size: 1.2rem;
   }
 
   &__answer {
-    color: white;
-    margin-top: 1rem;
     width: 100%;
     padding: 1rem;
+    margin-top: 1rem;
+
     border: 1px solid blueviolet;
     border-radius: 35px;
+
+    color: white;
+
     &:hover {
       color: blueviolet;
       background-color: #f7d408;
@@ -197,14 +252,16 @@
 }
 
 .footer {
-  background-color: black;
   padding: 1rem;
+  background-color: black;
+
   &__section-title {
     color: white;
   }
 
   &__contact-group {
     @include flexbox(column, flex-start, flex-start);
+
     margin-bottom: 1rem;
   }
 
@@ -215,20 +272,23 @@
 
   &__icon-link {
     @include flexbox(row, center, center);
+
+    margin-bottom: 0.5rem;
     font-size: 0.8rem;
     color: white;
-    margin-bottom: 0.5rem;
+
     &:hover {
       text-decoration: underline;
     }
   }
 
   &__icon {
-    background-color: white;
-    border: 1px solid white;
-    border-radius: 10px;
     margin-right: 0.5rem;
     width: 1.2rem;
     height: 1.2rem;
+
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 10px;
   }
 }

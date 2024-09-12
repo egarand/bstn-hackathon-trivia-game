@@ -91,16 +91,17 @@ API.getCategories()
 			option.textContent = category.name;
 			categorySelect.append(option);
 		}
+		startGameForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			gameLoop();
+		});
 	});
 
-startGameForm.addEventListener("submit", (event) => {
-	event.preventDefault();
-	gameLoop();
-});
 
 async function gameLoop() {
-	await game.start();
+	await game.start(difficultySelect.value, categorySelect.value);
 	displayScore();
+	displayMessage("Good luck!");
 	displayQuestion(game.getCurrentQuestion());
 	const radioBtns = questionForm.querySelectorAll("input[type=radio]");
 

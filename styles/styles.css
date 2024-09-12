@@ -28,7 +28,7 @@ a {
 }
 
 h1 {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: white;
 }
@@ -126,7 +126,7 @@ h4 {
   background-size: cover;
 }
 .hero__title {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
   animation: scale-hero-title 2s linear alternate infinite;
 }
 
@@ -144,7 +144,7 @@ h4 {
 .game__container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
@@ -156,9 +156,13 @@ h4 {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  gap: 5rem;
   margin-bottom: 2rem;
+}
+.game__user-msg {
+  color: white;
 }
 .game__start-btn {
   cursor: pointer;
@@ -209,6 +213,9 @@ h4 {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  background-color: rgba(234, 98, 232, 0.062745098);
+  border-radius: 3rem;
+  padding: 1rem;
   width: 100%;
 }
 .game__card {

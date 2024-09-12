@@ -71,7 +71,7 @@
   background-size: cover;
 
   &__title {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     animation: scale-hero-title 2s linear alternate infinite;
   }
 }
@@ -90,7 +90,7 @@
   }
 
   &__container {
-    @include flexbox(row, space-around, center);
+    @include flexbox(row, space-between, center);
     margin-bottom: 2rem;
   }
 
@@ -101,8 +101,13 @@
 
   &__btn-container {
     width: 100%;
-    @include flexbox(row, center, center);
+    @include flexbox(row, flex-start, center);
+    gap: 5rem;
     margin-bottom: 2rem;
+  }
+
+  &__user-msg {
+    color: white;
   }
 
   &__start-btn {
@@ -139,6 +144,9 @@
 
   &__container2 {
     @include flexbox(row, space-around, center);
+    background-color: #ea62e810;
+    border-radius: 3rem;
+    padding: 1rem;
     width: 100%;
   }
 

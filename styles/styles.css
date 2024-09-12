@@ -145,7 +145,7 @@ h4 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 2rem;
 }
 .game__label {
@@ -178,31 +178,77 @@ h4 {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .game__category, .game__difficult {
-  width: 10rem;
+  width: 25rem;
   border-radius: 12px;
   text-align: center;
   background-color: blueviolet;
   color: white;
 }
-.game__question-number {
+.game__prize-ladder {
   width: 25%;
+  height: 29rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 }
-.game__question {
+.game__prize-amount {
   width: 8rem;
   text-align: center;
   color: white;
   border: 1px solid blueviolet;
   border-radius: 12px;
-  margin-bottom: 0.5rem;
 }
-.game__question:hover {
+.game__prize-amount--selected {
   background-color: #f7d408;
   color: blueviolet;
   animation: scale-question-number 500ms linear alternate infinite;
+}
+.game__container2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+.game__card {
+  border: 1px solid blueviolet;
+  border-radius: 15px;
+  padding: 1rem;
+}
+.game__question {
+  color: blueviolet;
+  background-color: #f7d408;
+  height: 8rem;
+  width: 40rem;
+  padding: 1rem;
+  border: 1px solid blueviolet;
+  border-radius: 12px;
+  font-size: 1.2rem;
+}
+.game__answer {
+  color: white;
+  margin-top: 1rem;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid blueviolet;
+  border-radius: 35px;
+}
+.game__answer:hover {
+  color: blueviolet;
+  background-color: #f7d408;
+}
+.game__answer--selected {
+  color: blueviolet;
+  background-color: #f7d408;
+}
+.game__answer--correct {
+  color: blueviolet;
+  background-color: #14f204;
+}
+.game__answer--incorrect {
+  color: white;
+  background-color: red;
 }
 
 .footer {

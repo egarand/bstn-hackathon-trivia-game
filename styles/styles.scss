@@ -90,7 +90,7 @@
   }
 
   &__container {
-    @include flexbox(row, space-around, flex-start);
+    @include flexbox(row, space-around, center);
     margin-bottom: 2rem;
   }
 
@@ -111,29 +111,79 @@
 
   &__category,
   &__difficult {
-    width: 10rem;
+    width: 25rem;
     border-radius: 12px;
     text-align: center;
     background-color: blueviolet;
     color: white;
   }
 
-  &__question-number {
+  &__prize-ladder {
     width: 25%;
-    @include flexbox(column, flex-start, center);
+    height: 29rem;
+    @include flexbox(column, space-between, center);
   }
 
-  &__question {
+  &__prize-amount {
     width: 8rem;
     text-align: center;
     color: white;
     border: 1px solid blueviolet;
     border-radius: 12px;
-    margin-bottom: 0.5rem;
-    &:hover {
+    &--selected {
       background-color: #f7d408;
       color: blueviolet;
       animation: scale-question-number 500ms linear alternate infinite;
+    }
+  }
+
+  &__container2 {
+    @include flexbox(row, space-around, center);
+    width: 100%;
+  }
+
+  &__card {
+    border: 1px solid blueviolet;
+    border-radius: 15px;
+    padding: 1rem;
+  }
+
+  &__question {
+    color: blueviolet;
+    background-color: #f7d408;
+    height: 8rem;
+    width: 40rem;
+    padding: 1rem;
+    border: 1px solid blueviolet;
+    border-radius: 12px;
+    font-size: 1.2rem;
+  }
+
+  &__answer {
+    color: white;
+    margin-top: 1rem;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid blueviolet;
+    border-radius: 35px;
+    &:hover {
+      color: blueviolet;
+      background-color: #f7d408;
+    }
+
+    &--selected {
+      color: blueviolet;
+      background-color: #f7d408;
+    }
+
+    &--correct {
+      color: blueviolet;
+      background-color: #14f204;
+    }
+
+    &--incorrect {
+      color: white;
+      background-color: red;
     }
   }
 }

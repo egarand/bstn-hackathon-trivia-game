@@ -101,37 +101,38 @@ startGameForm.addEventListener("submit", (event) => {
 async function gameLoop() {
 	await game.start();
 	displayScore();
+	displayQuestion(game.getCurrentQuestion());
+	const radioBtns = questionForm.querySelectorAll("input[type=radio]");
 
 	console.log("example question", game.getCurrentQuestion());
 
-	const choiceListener = (event) => {
-		for (const choice of questionForm.querySelectorAll("input[type=radio]")) {
-			choice.setAttribute("disabled", true);
+	for (const radio of radioBtns) {
+		radio.addEventListener("change", choiceListener);
+	}
+
+	function choiceListener(event) {
+		for (const radio of radioBtns) {
+			radio.setAttribute("disabled", true);
 		}
 		const answer = event.currentTarget.value;
 		const wasCorrect = game.answerCurrentQuestion(answer);
 		if (wasCorrect) {
 			displayScore();
-			event.currentTarget.classList.add("game__answer--correct");
+			event.currentTarget.parentElement.classList.add("game__answer--correct");
 
 			game.goToNextQuestion();
 			if (game.hasReachedEnd) {
 				displayRestart("You won! :)");
 			} else {
 				setTimeout(() => {
-					displayQuestion(game.getCurrentQuestion())
+					displayQuestion(game.getCurrentQuestion());
 				}, 5000);
 			}
 		} else {
-			event.currentTarget.classList.add("game__answer--incorrect");
+			event.currentTarget.parentElement.classList.add("game__answer--incorrect");
 			displayRestart("You lost... :(");
 		}
-	};
-
-	for (const choice of questionForm.querySelectorAll("input[type=radio]")) {
-		choice.setAttribute("disabled", true);
 	}
-	questionForm.addEventListener("submit", choiceListener);
 }
 
 /**

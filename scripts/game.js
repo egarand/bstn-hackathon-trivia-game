@@ -77,7 +77,10 @@ const game = new TriviaGame();
 
 const difficultySelect = document.querySelector("#difficult"),
 	categorySelect = document.querySelector("#category"),
-	startGameForm = document.querySelector(".game__form");
+	startGameForm = document.querySelector(".game__form"),
+	prizeLadder = document.querySelector(".game__prize-ladder"),
+	questionCard = document.querySelector(".game__card"),
+	questionForm = questionCard.querySelector("form");
 
 API.getCategories()
 	.then((categories) => {
@@ -90,25 +93,73 @@ API.getCategories()
 		}
 	});
 
-startGameForm.addEventListener("submit", async (event) => {
+startGameForm.addEventListener("submit", (event) => {
 	event.preventDefault();
-	await game.start(difficultySelect.value, categorySelect.value);
-
-	const question = game.getCurrentQuestion();
-	console.log(question);
+	gameLoop();
 });
 
-/*
-GAME LOOP:
+async function gameLoop() {
+	await game.start();
+	displayScore();
 
-1. game.start(difficulty, category) to begin a new game. ASYNCHRONOUS; WAIT TIL IT FINISHES.
-2. use game.getCurrentQuestion() to get a question object. Display it as HTML on the page.
-3. when the user selects and submits an answer, use game.answerCurrentQuestion() to answer it. this method returns true if it was correct, and false if it wasn't correct.
-4. if the answer was correct....
-	a. use game.goToNextQuestion() to increment the question counter.
-	b. use game.hasReachedEnd to check if there are questions left or not.
-		i. if no questions are left, tell the user they won! and ask if they want to play again.
-		ii. if there are questions left, repeat from step 2.
-5. if the answer was incorrect...
-	a. tell the user they lost... and ask if they want to play again.
+	console.log("example question", game.getCurrentQuestion());
+
+	const choiceListener = (event) => {
+		for (const choice of questionForm.querySelectorAll("input[type=radio]")) {
+			choice.setAttribute("disabled", true);
+		}
+		const answer = event.currentTarget.value;
+		const wasCorrect = game.answerCurrentQuestion(answer);
+		if (wasCorrect) {
+			displayScore();
+			event.currentTarget.classList.add("game__answer--correct");
+
+			game.goToNextQuestion();
+			if (game.hasReachedEnd) {
+				displayRestart("You won! :)");
+			} else {
+				setTimeout(() => {
+					displayQuestion(game.getCurrentQuestion())
+				}, 5000);
+			}
+		} else {
+			event.currentTarget.classList.add("game__answer--incorrect");
+			displayRestart("You lost... :(");
+		}
+	};
+
+	for (const choice of questionForm.querySelectorAll("input[type=radio]")) {
+		choice.setAttribute("disabled", true);
+	}
+	questionForm.addEventListener("submit", choiceListener);
+}
+
+/**
+ * Use on the text for questions and answer choices to make sure they display correctly.
+ * @param {string} text
+ * @returns {string}
 */
+function decodeEntities(text) {
+    var el = document.createElement("textarea");
+    el.innerHTML = text;
+    return el.value;
+}
+
+function displayQuestion(question) {
+	for (const choice of questionForm.querySelectorAll("input[type=radio]")) {
+		choice.removeAttribute("disabled");
+		choice.classList.remove("game__answer--correct");
+		choice.classList.remove("game__answer--incorrect");
+	}
+
+	// TODO should update the game__card (stored in questionCard) with current question
+}
+
+function displayScore() {
+	// TODO should update the score ladder to reflect current score
+	// game.questionsCorrect
+}
+
+function displayRestart(message) {
+	// TODO should show the message (which says if they won or lost), and tell the user to restart the game
+}

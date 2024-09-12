@@ -4,6 +4,8 @@ Handles API calls and event listeners for the trivia game.
 author: Erica Garand
 */
 
+(()=>{
+
 /**
  * Manages question generation, game progression, and scoring
  */
@@ -189,3 +191,5 @@ function displayMessage(message) {
 	const messageEl = document.querySelector(".game__user-msg");
 	messageEl.textContent = message;
 }
+
+})();

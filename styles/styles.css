@@ -10,10 +10,6 @@
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
-}
-
-html {
   box-sizing: border-box;
 }
 
@@ -55,6 +51,14 @@ h4 {
   }
   to {
     transform: scale(1.5);
+  }
+}
+@keyframes scale-question-number {
+  0% {
+    transform: scale(initial);
+  }
+  to {
+    transform: scale(1.2);
   }
 }
 .header {
@@ -124,6 +128,81 @@ h4 {
 .hero__title {
   margin-bottom: 0.5rem;
   animation: scale-hero-title 2s linear alternate infinite;
+}
+
+.game {
+  background-color: #031430;
+  padding: 1rem;
+  height: auto;
+}
+.game__section-title {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.game__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.game__label {
+  color: white;
+  margin-right: 0.5rem;
+}
+.game__btn-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.game__start-btn {
+  cursor: pointer;
+  height: 2.5rem;
+  width: 30%;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: rgb(205, 174, 234);
+  color: blueviolet;
+}
+.game__start-btn:hover {
+  background-color: blueviolet;
+  color: white;
+}
+.game__start-btn:active {
+  transform: scale(95%);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.game__category, .game__difficult {
+  width: 10rem;
+  border-radius: 12px;
+  text-align: center;
+  background-color: blueviolet;
+  color: white;
+}
+.game__question-number {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.game__question {
+  width: 8rem;
+  text-align: center;
+  color: white;
+  border: 1px solid blueviolet;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+}
+.game__question:hover {
+  background-color: #f7d408;
+  color: blueviolet;
+  animation: scale-question-number 500ms linear alternate infinite;
 }
 
 .footer {

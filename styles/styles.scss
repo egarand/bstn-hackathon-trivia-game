@@ -76,6 +76,68 @@
   }
 }
 
+.game {
+  background-color: #031430;
+  padding: 1rem;
+  height: auto;
+
+  &__section-title {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+
+    text-align: center;
+  }
+
+  &__container {
+    @include flexbox(row, space-around, flex-start);
+    margin-bottom: 2rem;
+  }
+
+  &__label {
+    color: white;
+    margin-right: 0.5rem;
+  }
+
+  &__btn-container {
+    width: 100%;
+    @include flexbox(row, center, center);
+    margin-bottom: 2rem;
+  }
+
+  &__start-btn {
+    @include button;
+  }
+
+  &__category,
+  &__difficult {
+    width: 10rem;
+    border-radius: 12px;
+    text-align: center;
+    background-color: blueviolet;
+    color: white;
+  }
+
+  &__question-number {
+    width: 25%;
+    @include flexbox(column, flex-start, center);
+  }
+
+  &__question {
+    width: 8rem;
+    text-align: center;
+    color: white;
+    border: 1px solid blueviolet;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    &:hover {
+      background-color: #f7d408;
+      color: blueviolet;
+      animation: scale-question-number 500ms linear alternate infinite;
+    }
+  }
+}
+
 .footer {
   background-color: black;
   padding: 1rem;

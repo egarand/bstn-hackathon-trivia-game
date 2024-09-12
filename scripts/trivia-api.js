@@ -1,6 +1,9 @@
-/**
- * @author Erica Garand
- */
+/*
+For connecting to the Open Trivia Databse to retrieve trivia categories and questions.
+
+author: Erica Garand
+*/
+
 class TriviaAPI {
 	constructor() {}
 
@@ -29,10 +32,6 @@ class TriviaAPI {
 			url.searchParams.append("category", category);
 		}
 
-		if (this.debugMode) {
-			return this.testQuestions.results;
-		}
-
 		try {
 			const response = await axios.get(url);
 			return response.data.results;
@@ -46,9 +45,6 @@ class TriviaAPI {
 
 	async getCategories() {
 		const url = new URL("api_category.php", this.baseUrl);
-		if (this.debugMode) {
-			return this.testCategories.trivia_categories;
-		}
 
 		try {
 			const response = await axios.get(url);

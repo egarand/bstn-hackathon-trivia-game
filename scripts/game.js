@@ -1,5 +1,11 @@
+/*
+Handles API calls and event listeners for the trivia game.
+
+author: Erica Garand
+*/
+
 /**
- * @author Erica Garand
+ * Manages question generation, game progression, and scoring
  */
 class TriviaGame {
 	constructor() {}
@@ -73,7 +79,9 @@ class TriviaGame {
 	}
 }
 
+
 const game = new TriviaGame();
+let listenersAlreadyInitialized = false;
 
 const difficultySelect = document.querySelector("#difficult"),
 	categorySelect = document.querySelector("#category"),
@@ -81,6 +89,7 @@ const difficultySelect = document.querySelector("#difficult"),
 	prizeLadder = document.querySelector(".game__prize-ladder"),
 	questionCard = document.querySelector(".game__card"),
 	questionForm = questionCard.querySelector("form");
+
 
 API.getCategories()
 	.then((categories) => {
@@ -97,43 +106,48 @@ API.getCategories()
 		});
 	});
 
-
+/** Starts a new round of trivia */
 async function gameLoop() {
 	await game.start(difficultySelect.value, categorySelect.value);
 	displayScore();
 	displayMessage("Good luck!");
 	displayQuestion(game.getCurrentQuestion());
-	const radioBtns = questionForm.querySelectorAll("input[type=radio]");
 
-	for (const radio of radioBtns) {
-		radio.addEventListener("change", choiceListener);
-	}
+	if (!listenersAlreadyInitialized) {
+		listenersAlreadyInitialized = true;
 
-	function choiceListener(event) {
+		const radioBtns = questionForm.querySelectorAll("input[type=radio]");
 		for (const radio of radioBtns) {
-			radio.setAttribute("disabled", true);
+			radio.addEventListener("change", choiceListener);
 		}
-		const answer = event.currentTarget.value;
-		const wasCorrect = game.answerCurrentQuestion(answer);
-		if (wasCorrect) {
-			displayScore();
-			event.currentTarget.parentElement.classList.add("game__answer--correct");
 
-			game.goToNextQuestion();
-			if (game.hasReachedEnd) {
-				displayMessage("You won! Play again?");
-			} else {
-				setTimeout(() => {
-					displayQuestion(game.getCurrentQuestion());
-				}, 5000);
+		function choiceListener(event) {
+			for (const radio of radioBtns) {
+				radio.setAttribute("disabled", true);
 			}
-		} else {
-			event.currentTarget.parentElement.classList.add("game__answer--incorrect");
-			displayMessage("You lost... Play again?");
-			displayScore(0);
+			const answer = event.currentTarget.value;
+			const wasCorrect = game.answerCurrentQuestion(answer);
+			if (wasCorrect) {
+				displayScore();
+				event.currentTarget.parentElement.classList.add("game__answer--correct");
+
+				game.goToNextQuestion();
+				if (game.hasReachedEnd) {
+					displayMessage("You won! Play again?");
+				} else {
+					setTimeout(() => {
+						displayQuestion(game.getCurrentQuestion());
+					}, 5000);
+				}
+			} else {
+				event.currentTarget.parentElement.classList.add("game__answer--incorrect");
+				displayMessage("You lost... Play again?");
+				displayScore(0);
+			}
 		}
 	}
 }
+
 
 /**
  * Use on the text for questions and answer choices to make sure they display correctly.

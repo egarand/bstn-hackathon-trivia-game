@@ -6,3 +6,12 @@
     transform: scale(1.5);
   }
 }
+
+@keyframes scale-question-number {
+  0% {
+    transform: scale(initial);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}

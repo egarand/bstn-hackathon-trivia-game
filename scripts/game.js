@@ -16,14 +16,14 @@ class TriviaGame {
 
 	get questionsTotal() { return this.#questions.length; }
 	get questionsCorrect() { return this.#points; }
+	// note: if we implement a skip button, should check if unanswered questions remain
+	get hasReachedEnd() { return this.#currentQuestion >= this.questionsTotal; }
 
-	get currentQuestion() {
-		// TODO returns a copy of a question object, with answers in one array & scrambled.
 	}
 
 	goToNextQuestion() {
-		// TODO returns true if there is a next question, and makes currentQuestion return that. if there is no next question, returns false.
-
+		// note: if we implement a skip button, should search for a question that is not answered yet until none remain
+		this.#currentQuestion++;
 	}
 
 	answerCurrentQuestion(answer) {

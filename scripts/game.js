@@ -94,23 +94,38 @@ const difficultySelect = document.querySelector("#difficult"),
 
 
 API.getCategories()
-	.then((categories) => {
-		categorySelect.textContent = "";
-		for (const category of categories) {
-			let option = document.createElement("option");
-			option.setAttribute("value", category.id);
-			option.textContent = category.name;
-			categorySelect.append(option);
-		}
-		startGameForm.addEventListener("submit", (event) => {
-			event.preventDefault();
-			gameLoop();
-		});
+	.then(displayCategories)
+	.catch((error) => {
+		console.log(error);
+		displayMessage(`Error retrieving categories. Retrying in a few seconds...`);
+		setTimeout(()=>{
+			API.getCategories()
+				.then(displayCategories)
+				.then(()=> displayMessage("Press START to begin the game --->"))
+				.catch(() => displayMessage("Couldn't retrieve trivia categories. \nPlease refresh page and try again."));
+		}, 5100);
 	});
 
 /** Starts a new round of trivia */
 async function gameLoop() {
-	await game.start(difficultySelect.value, categorySelect.value);
+	try {
+		await game.start(difficultySelect.value, categorySelect.value);
+	} catch (error) {
+		console.log(error);
+		displayMessage(`Error retrieving questions. Retrying in a few seconds...`);
+		let doContinue = true;
+		await awaitableTimeout(async ()=>{
+			try {
+				await game.start(difficultySelect.value, categorySelect.value);
+			} catch (error) {
+				displayMessage("Couldn't retrieve trivia questions. \nPlease try again.");
+				doContinue = false;
+			}
+		}, 5100);
+		if (!doContinue) {
+			return;
+		}
+	}
 	displayScore();
 	displayMessage("Good luck!");
 	displayQuestion(game.getCurrentQuestion());
@@ -151,6 +166,15 @@ async function gameLoop() {
 }
 
 
+function awaitableTimeout (fn, ms) {
+	return new Promise((resolve, reject) => {
+		setTimeout(async () => {
+			await fn();
+			resolve();
+		}, ms);
+	});
+}
+
 /**
  * Use on the text for questions and answer choices to make sure they display correctly.
  * @param {string} text
@@ -160,6 +184,20 @@ function decodeEntities(text) {
     var el = document.createElement("textarea");
     el.innerHTML = text;
     return el.value;
+}
+
+function displayCategories(categories) {
+	categorySelect.textContent = "";
+	for (const category of categories) {
+		let option = document.createElement("option");
+		option.setAttribute("value", category.id);
+		option.textContent = decodeEntities(category.name);
+		categorySelect.append(option);
+	}
+	startGameForm.addEventListener("submit", (event) => {
+		event.preventDefault();
+		gameLoop();
+	});
 }
 
 function displayQuestion(question) {

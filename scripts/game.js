@@ -27,6 +27,18 @@ class TriviaGame {
 	}
 
 	answerCurrentQuestion(answer) {
-		// TODO if that's correct, mark the question answered correctly, increment points, return true. if that's incorrect, return false.
+		if (this.hasReachedEnd) {
+			return null;
+		}
+
+		const question = this.#questions[this.#currentQuestion];
+		if (answer === question.correct_answer){
+			question.answeredCorrectly = true;
+			this.#points++;
+			return true;
+		}
+		return false;
+
+
 	}
 }

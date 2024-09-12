@@ -159,7 +159,6 @@ async function gameLoop() {
 			} else {
 				event.currentTarget.parentElement.classList.add("game__answer--incorrect");
 				displayMessage("You lost... Play again?");
-				displayScore(0);
 			}
 		}
 	}

@@ -1,78 +1,7 @@
-@use './Partials/typography' as *;
-@use './Partials/mixins' as *;
-@use './Partials/animations' as *;
-
-.header {
-  background-color: #031430;
-
-  @include flexbox(column, none, center);
-
-  @include tablet {
-    @include flexbox(row, center, center);
-
-    padding-left: 2.25rem;
-  }
-
-  &__logo-link {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-
-    width: 3rem;
-    height: 3rem;
-  }
-
-  &__logo-img {
-    width: 100%;
-    height: 100%;
-  }
-
-  &__nav {
-    width: 100%;
-  }
-
-  &__menu {
-    @include flexbox(row, space-evenly, center);
-
-    padding-bottom: 1rem;
-
-    @include tablet {
-      padding-bottom: 0rem;
-    }
-
-    &-item {
-      width: 45%;
-
-      background-color: rgb(205, 174, 234);
-      border: 1px solid blueviolet;
-      border-radius: 12px;
-
-      color: blueviolet;
-      text-align: center;
-
-      &:hover {
-        background-color: blueviolet;
-
-        .header__menu-link {
-          font-weight: 600;
-          color: white;
-        }
-      }
-
-      &--active {
-        background-color: blueviolet;
-      }
-    }
-
-    &-link {
-      color: blueviolet;
-
-      &--active {
-        font-weight: 600;
-        color: white;
-      }
-    }
-  }
-}
+@use './partials/typography' as *;
+@use './partials/mixins' as *;
+@use './partials/animations' as *;
+@use './partials/global' as *;
 
 .hero {
   @include flexbox(row, center, flex-end);
@@ -258,47 +187,5 @@
       }
       animation: incorrect-answer 20ms linear alternate 5;
     }
-  }
-}
-
-.footer {
-  padding: 1rem;
-  background-color: black;
-
-  &__section-title {
-    color: white;
-  }
-
-  &__contact-group {
-    @include flexbox(column, flex-start, flex-start);
-
-    margin-bottom: 1rem;
-  }
-
-  &__creator {
-    color: white;
-    margin-bottom: 0.5rem;
-  }
-
-  &__icon-link {
-    @include flexbox(row, center, center);
-
-    margin-bottom: 0.5rem;
-    font-size: 0.8rem;
-    color: white;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  &__icon {
-    margin-right: 0.5rem;
-    width: 1.2rem;
-    height: 1.2rem;
-
-    background-color: white;
-    border: 1px solid white;
-    border-radius: 10px;
   }
 }

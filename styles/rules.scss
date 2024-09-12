@@ -1,0 +1,28 @@
+@use '../styles/partials/typography' as *;
+@use '../styles/partials/mixins' as *;
+@use '../styles/partials/animations' as *;
+@use '../styles/partials/global' as *;
+
+.rules {
+  padding: 1rem;
+  color: white;
+  background-color: #031430;
+
+  &__container {
+    border: 1px solid blueviolet;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+  }
+
+  &__list-item {
+    margin-bottom: 1.5rem;
+  }
+
+  &__bullet {
+    padding-left: 1.5rem;
+  }
+
+  &__bullet-item {
+    list-style: square;
+  }
+}

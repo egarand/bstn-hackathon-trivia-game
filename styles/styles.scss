@@ -3,7 +3,7 @@
 @use './Partials/animations' as *;
 
 .header {
-  background-color: #0a2d6a;
+  background-color: #031430;
 
   @include flexbox(column, none, center);
 
@@ -63,8 +63,8 @@
 }
 
 .hero {
-  @include flexbox(row, center, flex-start);
-  background-image: url('../assets/image.png');
+  @include flexbox(row, center, flex-end);
+  background-image: url('../assets/hero.png');
   height: 50vw;
   width: 100%;
   background-position: center;
@@ -73,5 +73,42 @@
   &__title {
     margin-bottom: 0.5rem;
     animation: scale-hero-title 2s linear alternate infinite;
+  }
+}
+
+.footer {
+  background-color: black;
+  padding: 1rem;
+  &__section-title {
+    color: white;
+  }
+
+  &__contact-group {
+    @include flexbox(column, flex-start, flex-start);
+    margin-bottom: 1rem;
+  }
+
+  &__creator {
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  &__icon-link {
+    @include flexbox(row, center, center);
+    font-size: 0.8rem;
+    color: white;
+    margin-bottom: 0.5rem;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__icon {
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-right: 0.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
   }
 }

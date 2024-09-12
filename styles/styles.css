@@ -37,6 +37,18 @@ h1 {
   color: white;
 }
 
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: white;
+}
+
 @keyframes scale-hero-title {
   0% {
     transform: scale(initial);
@@ -46,7 +58,7 @@ h1 {
   }
 }
 .header {
-  background-color: #0a2d6a;
+  background-color: #031430;
   display: flex;
   flex-direction: column;
   justify-content: none;
@@ -102,8 +114,8 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  background-image: url("../assets/image.png");
+  align-items: flex-end;
+  background-image: url("../assets/hero.png");
   height: 50vw;
   width: 100%;
   background-position: center;
@@ -112,4 +124,43 @@ h1 {
 .hero__title {
   margin-bottom: 0.5rem;
   animation: scale-hero-title 2s linear alternate infinite;
+}
+
+.footer {
+  background-color: black;
+  padding: 1rem;
+}
+.footer__section-title {
+  color: white;
+}
+.footer__contact-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+.footer__creator {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+.footer__icon-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+.footer__icon-link:hover {
+  text-decoration: underline;
+}
+.footer__icon {
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-right: 0.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
 }/*# sourceMappingURL=styles.css.map */
